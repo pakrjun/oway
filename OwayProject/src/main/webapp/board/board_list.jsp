@@ -62,7 +62,7 @@
 								</c:forEach>
 								<img src="../image/icon_reply.gif">
 							</c:if>
-							<a href="#">${vo.title }</a>
+							<a href="board_content.do?page=${curPage }&num=${vo.num}">${vo.title }</a>
 						</td>
 						<td>${vo.name }</td>
 						<td><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd"/></td>
@@ -71,7 +71,38 @@
 				</c:forEach>				
 			</tbody>
 		</table>
-
 	</div>
+	<div class="paging" align="center">
+		<c:if test="${curPage>block }">
+			<a href="board_list.do?page=1"><img src="../image/icon_prevend.gif"/></a>
+			<a href="board_list.do?page=${fromPage-1 }"><img src="../image/icon_prev.gif"/></a>
+		</c:if>
+		<c:if test="${curPage<=block }">
+			<c:if test="${curPage==1 }">
+				<img src="../image/icon_prevend_none.gif"/>
+				<img src="../image/icon_prev_none.gif"/>
+			</c:if>
+			<c:if test="${curPage!=1 }">
+				<a href="board_list.do?page=1"><img src="../image/icon_prevend.gif"></a>
+				<img src="../image/icon_prev_none.gif"/>
+			</c:if>
+		</c:if>	
+		<c:forEach var="i" begin="${fromPage }" end="${toPage }">
+			<c:if test="${i!=curPage }">
+				<a href="board_list.do?page=${i}">${i }</a>
+			</c:if>
+			<c:if test="${i==curPage }">
+				<b>${i }</b>
+			</c:if>
+		</c:forEach>
+		<c:if test="${toPage<totalPage }">
+			<a href="board_list.do?page=${toPage+1 }"><img src="../image/icon_next.gif"/></a>
+			<a href="board_list.do?page=${totalPage }"><img src="../image/icon_nextend.gif"/></a>
+		</c:if>
+		<c:if test="${toPage>=totalPage }">
+			<img src="../image/icon_next_none.gif"/>
+			<img src="../image/icon_nextend_none.gif"/>
+		</c:if>
+	</div>	
 </body>
 </html>

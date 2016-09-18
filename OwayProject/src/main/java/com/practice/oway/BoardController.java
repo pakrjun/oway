@@ -22,9 +22,15 @@ public class BoardController {
 			page="1";
 		}
 		int curPage=Integer.parseInt(page);
-		boardService.boardList(model, curPage);
+		boardService.getBoardList(model, curPage);
 		
 		return "board/board_list";
+	}
+	@RequestMapping("board/board_content.do")
+	public String board_content(int page,Model model,int num){
+		boardService.getBoardContent(model, num);
+		model.addAttribute("page",page);
+		return "board/board_content";
 	}
 	
 }
